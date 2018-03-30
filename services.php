@@ -78,36 +78,113 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 <!-- //header -->
 <!-- about -->
+
+
+<?php session_start();
+ if (isset($_GET['iot'])) {
+
+	$txt = "Internet of Things (IOT)";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+
+
+if (isset($_GET['ml'])) {
+ 
+	$txt = "Machine Learning";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+
+if (isset($_GET['ai'])) {
+ 
+	$txt = "Artificial Intelligence (AI)";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+
+
+if (isset($_GET['data_mining'])) {
+ 
+	$txt = "Data Mining";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+
+
+
+if (isset($_GET['net'])) {
+ 
+	$txt = "Networking";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+
+if (isset($_GET['graphics'])) {
+ 
+	$txt = "Graphics";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+
+if (isset($_GET['cloud'])) {
+ 
+	$txt = "Cloud Computing";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+
+if (isset($_GET['fog'])) {
+ 
+	$txt = "Fog Computing";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+
+
+
+if (isset($_GET['bio'])) {
+ 
+	$txt = "Bio-informatics";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+
+if (isset($_GET['nlp'])) {
+ 
+	$txt = "Natural Language Processing (NLP)";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+
+if (isset($_GET['robo'])) {
+ 
+	$txt = "Robotics";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+
+if (isset($_GET['mob'])) {
+ 
+	$txt = "Mobile Computing";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");
+
+
+
+}
+?>
+
+
 <div class="welcome">
 	<div class="container">
 		<h3 class="heading-agileinfo">Research Topics<span>  </span></h3>
 		<div class="w3ls_news_grids">
 		<!--<ul class="footer_grid_list"> -->
-			<h3><li><a href="#" >Artificial Inteligence (AI)</a></li>
-				<li><a href="#" >Internet Of Things (IOT)</a></li>
-				<li><a href="#" >Machine Learning (ML)</a></li>
-				<li><a href="#" >Data Mining</a></li>
-				<li><a href="#" >Networking</a></li>
-				<li><a href="#" >Graphics</a></li>
-				<li><a href="#" >Cloud Computing</a></li>
-				<li><a href="#" >Fog Computing</a></li>
-				<li><a href="#" >Mobile Computing</a></li>
-				<li><a href="#" >Bio-informatics</a></li>
-				<li><a href="#" >Natural Language Processing (NLP)</a></li>
-				<li><a href="#" >Robotics</a></li>
-				<!--<li>Artificial Inteligence (AI)</li>
-				<li>Internet Of Things (IOT)</li>
-				<li>Machine Learning (ML)</li>
-				<li>Data Mining</li>
-				<li>Networking</li>
-				<li>Graphics</li>
-				<li>Cloud Computing</li>
-				<li>Fog Computing</li>
-				<li>Mobile Computing</li>
-				<li>Bio-informatics</li>
-				<li>Natural Language Processing (NLP)</li>
-				<li>Robotics</li>
-				-->
+			<h3><li><a href="services.php?ai='1'" >Artificial Inteligence (AI)</a></li>
+				<li><a <a href="services.php?iot='1'">Internet Of Things (IOT)</a></li>
+
+
+				<li><a href="services.php?ml='1'" >Machine Learning (ML)</a></li>
+				<li><a href="services.php?data_mining='1'" >Data Mining</a></li>
+				<li><a href="services.php?net='1'" >Networking</a></li>
+				<li><a href="services.php?graphics='1'" >Graphics</a></li>
+				<li><a href="services.php?cloud='1'" >Cloud Computing</a></li>
+				<li><a href="services.php?fog='1'" >Fog Computing</a></li>
+				<li><a href="services.php?mob='1'" >Mobile Computing</a></li>
+				<li><a href="services.php?bio='1'" >Bio-informatics</a></li>
+				<li><a href="services.php?nlp='1'" >Natural Language Processing (NLP)</a></li>
+				<li><a href="services.php?robo='1'" >Robotics</a></li>
+				
 				<a class="anchorjs-link" href="#h1.-bootstrap-heading"><span class="anchorjs-icon"></span></a>
 			<div class="clearfix"> </div>
 			</h3>
