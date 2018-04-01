@@ -4,6 +4,26 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+
+<?php
+
+
+session_start(); 
+
+  if (!isset($_SESSION['username'])) {
+  	$_SESSION['msg'] = "You must log in first";
+  	header('location: login.php');
+  }
+  if (isset($_GET['sign_out'])) {
+  	session_destroy();
+  	unset($_SESSION['username']);
+  	header("location: index.html");
+  }
+
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -18,14 +38,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		addEventListener("load", function () {
 			setTimeout(hideURLbar, 0);
 		}, false);
-
 		function hideURLbar() {
 			window.scrollTo(0, 1);
 		}
 	</script>
 	<!--//tags -->
 	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css/style_new.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="css/font-awesome.css" rel="stylesheet">
 	<!-- //for bootstrap working -->
 	<link href="//fonts.googleapis.com/css?family=Work+Sans:200,300,400,500,600,700" rel="stylesheet">
@@ -54,8 +73,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<nav class="link-effect-2" id="link-effect-2">
 						<ul class="nav navbar-nav">
-							<li><a href="index.html" class="effect-3">Home</a></li>
-							<li><a href="about.html" class="effect-3">About</a></li>
+							<li><a href="home.html" class="effect-3">Home</a></li>
+							<li><a href="s_about.html" class="effect-3">About</a></li>
 							<li class="active"><a href="services.php" class="effect-3">Resources</a></li>
 							<!--<li><a href="gallery.html" class="effect-3">Profile</a></li>-->
 							<!--<li class="dropdown">-->
@@ -65,8 +84,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<!--<li><a href="icons.html">Icons</a></li>-->
 							<!--</ul>-->
 							<!--</li>-->
-							<li><a href="home.html" class="effect-3">Sign In</a></li>
-							<li><a href="#" data-toggle="modal" data-target="#SignupModal" class="effect-3">Sign Up</a></li>
+							<li><a href="u_profile.php" class="effect-3">Profile</a></li>
+							<li><a href="services.php?sign_out='1'" class="effect-3" name="sign_out">Sign Out</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -80,8 +99,67 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- about -->
 
 
-<?php session_start();
- include('clicked_topic.php');
+<?php 
+ if (isset($_GET['iot'])) {
+	$txt = "Internet of Things (IOT)";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+if (isset($_GET['ml'])) {
+ 
+	$txt = "Machine Learning";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+if (isset($_GET['ai'])) {
+ 
+	$txt = "Artificial Intelligence (AI)";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+if (isset($_GET['data_mining'])) {
+ 
+	$txt = "Data Mining";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+if (isset($_GET['net'])) {
+ 
+	$txt = "Networking";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+if (isset($_GET['graphics'])) {
+ 
+	$txt = "Graphics";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+if (isset($_GET['cloud'])) {
+ 
+	$txt = "Cloud Computing";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+if (isset($_GET['fog'])) {
+ 
+	$txt = "Fog Computing";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+if (isset($_GET['bio'])) {
+ 
+	$txt = "Bio-informatics";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+if (isset($_GET['nlp'])) {
+ 
+	$txt = "Natural Language Processing (NLP)";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+if (isset($_GET['robo'])) {
+ 
+	$txt = "Robotics";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");}
+if (isset($_GET['mob'])) {
+ 
+	$txt = "Mobile Computing";
+	$_SESSION['type'] =$txt ;
+	header("location: resources.php");
+}
 ?>
 
 
@@ -123,14 +201,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="js/skill.bars.jquery.js"></script>
 <script>
 		$(document).ready(function(){
-
 			$('.skillbar').skillBars({
 				from: 0,
 				speed: 4000,
 				interval: 100,
 				decimals: 0,
 			});
-
 		});
 	</script>
 <!-- //skills -->
