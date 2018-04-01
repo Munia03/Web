@@ -1,5 +1,6 @@
 
-<?php session_start();?>
+<?php session_start();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -71,7 +72,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<ul class="nav navbar-nav">
 							<li><a href="index.html" class="effect-3">Home</a></li>
 							<li><a href="about.html" class="effect-3">About</a></li>
-							<li class="active"><a href="services.html" class="effect-3">Resources</a></li>
+							<li class="active"><a href="services.php" class="effect-3">Resources</a></li>
 				
 							<li><a href="home.html" class="effect-3">Sign In</a></li>
 							<li><a href="#" data-toggle="modal" data-target="#SignupModal" class="effect-3">Sign Up</a></li>
@@ -89,71 +90,86 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
  <?php
-  /*  $topic = $_SESSION['type'];
-	if($topic=='Artificial Intelligence (AI)')
-{
-	$table = 'AI';
-}*/
+
 
 include('topic_type.php');
+$_SESSION['table']=$table;
 
 
 ?>
 <div class="welcome">
 	<div class="container">
 		<h3 class="heading-agileinfo"><?php echo $topic?><span>  </span></h3>
+               <div id="employee_table">
 		<table class="table table-striped">
   
 <?php
-include('connect.php');
 
-
-$display = mysqli_query($conn,"select count(title) from ".$table);
-$row = mysqli_fetch_array($display);
-
-$total = $row[0];
-
-if($total==0)
-{?>
-	<h3>Nothing added yet in this section.</h3>
-<?php
-}
-else{
-$display = mysqli_query($conn,"select * from ".$table) ;?>
-
-
-	  <thead>
-         <tr>
-            <th> <h3>Paper Title</h3></th>
-            <th><h3>Link</h3></th>
-       
-         </tr>
-         </thead>
-          <tbody>
-
-
-<?php
-while($result = mysqli_fetch_array($display))
-{
-?>
-
-      <tr>
-	<td> <h4><?php echo $result["title"];?></h4> </td>
-        <td> <a href="<?php echo $result["link"];?>"><h4> <?php echo $result["link"];?></h4></a> </td>
-	
-      </tr>
-
-<?php
-
-}}
+include('show_table.php');
 
 ?>
-           
-    </tbody>
-  </table>
-	</div>
+
 </div>
+<a href="myModal" data-target="#myModal" data-toggle="modal">
+  <img id="fiximg"src="images/add.png" back width=100 height=100 align="right" >
+</a>
+	</div>
+
+        </div>
+
+
+
+
+
 <!-- //about -->
+
+
+<!--ADD MODAL-->
+
+ <!-- Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <h4 class="modal-title" align = "center">Add a paper</h4>
+        </div>
+        <div class="modal-body">
+            <form id="insert_form" method="post">
+    <div class="form-group">
+      <label for="usr">Paper Title:</label>
+      <input type="text" class="form-control" id="title" name="title">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Link:</label>
+      <input type="text" class="form-control" id="link" name="link">
+    </div>
+
+</div>
+        
+        <div class="modal-footer">
+         <!-- <button data-dismiss="modal" align=>Add</button>-->
+	
+        <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success">
+	
+	</div>
+							
+        </form>
+
+      </div>
+      
+    </div>
+
+  </div>
+
+  
+
+
+
 
 <a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 <!-- js -->
@@ -170,6 +186,39 @@ while($result = mysqli_fetch_array($display))
 				interval: 100,
 				decimals: 0,
 			});
+
+
+
+			 $('#insert_form').on("submit", function(event){  
+   				event.preventDefault();  
+   					 if($('#title').val() == "")  
+					  {  
+ 					  alert("Title is required");  
+ 						 }  
+  					else if($('#link').val() == '')  
+ 					 {  
+ 					  alert("Link is required");  
+ 						 }  
+ 					
+   
+ 					 else  
+ 					 {  
+ 						  $.ajax({  
+ 						   url:"insert_res.php",  
+						    method:"POST",  
+						    data:$('#insert_form').serialize(),  
+						    beforeSend:function(){  
+ 						    $('#insert').val("Inserting");  
+						    },  
+ 						   success:function(data){  
+  						   $('#insert_form')[0].reset();  
+  						   $('#myModal').modal('hide');  
+                                                   $(".modal-backdrop").remove();
+  						   $('#employee_table').html(data);  
+  							  }  
+   							});  
+ 							 }  
+ 							});
 
 		});
 	</script>
@@ -231,6 +280,9 @@ while($result = mysqli_fetch_array($display))
 	</div>
 
 	<!-- sign up modal -->
+
+
+
 </body>
 </html></title>
 </head>

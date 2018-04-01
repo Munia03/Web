@@ -56,7 +56,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<ul class="nav navbar-nav">
 							<li><a href="index.html" class="effect-3">Home</a></li>
 							<li><a href="about.html" class="effect-3">About</a></li>
-							<li class="active"><a href="services.html" class="effect-3">Resources</a></li>
+							<li class="active"><a href="services.php" class="effect-3">Resources</a></li>
 							<!--<li><a href="gallery.html" class="effect-3">Profile</a></li>-->
 							<!--<li class="dropdown">-->
 							<!--<a href="#" class="dropdown-toggle effect-3" data-toggle="dropdown">Pages <b class="caret"></b></a>-->
@@ -81,87 +81,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 <?php session_start();
- if (isset($_GET['iot'])) {
-
-	$txt = "Internet of Things (IOT)";
-	$_SESSION['type'] =$txt ;
-	header("location: resources.php");}
-
-
-if (isset($_GET['ml'])) {
- 
-	$txt = "Machine Learning";
-	$_SESSION['type'] =$txt ;
-	header("location: resources.php");}
-
-if (isset($_GET['ai'])) {
- 
-	$txt = "Artificial Intelligence (AI)";
-	$_SESSION['type'] =$txt ;
-	header("location: resources.php");}
-
-
-if (isset($_GET['data_mining'])) {
- 
-	$txt = "Data Mining";
-	$_SESSION['type'] =$txt ;
-	header("location: resources.php");}
-
-
-
-if (isset($_GET['net'])) {
- 
-	$txt = "Networking";
-	$_SESSION['type'] =$txt ;
-	header("location: resources.php");}
-
-if (isset($_GET['graphics'])) {
- 
-	$txt = "Graphics";
-	$_SESSION['type'] =$txt ;
-	header("location: resources.php");}
-
-if (isset($_GET['cloud'])) {
- 
-	$txt = "Cloud Computing";
-	$_SESSION['type'] =$txt ;
-	header("location: resources.php");}
-
-if (isset($_GET['fog'])) {
- 
-	$txt = "Fog Computing";
-	$_SESSION['type'] =$txt ;
-	header("location: resources.php");}
-
-
-
-if (isset($_GET['bio'])) {
- 
-	$txt = "Bio-informatics";
-	$_SESSION['type'] =$txt ;
-	header("location: resources.php");}
-
-if (isset($_GET['nlp'])) {
- 
-	$txt = "Natural Language Processing (NLP)";
-	$_SESSION['type'] =$txt ;
-	header("location: resources.php");}
-
-if (isset($_GET['robo'])) {
- 
-	$txt = "Robotics";
-	$_SESSION['type'] =$txt ;
-	header("location: resources.php");}
-
-if (isset($_GET['mob'])) {
- 
-	$txt = "Mobile Computing";
-	$_SESSION['type'] =$txt ;
-	header("location: resources.php");
-
-
-
-}
+ include('clicked_topic.php');
 ?>
 
 

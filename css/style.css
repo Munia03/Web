@@ -61,6 +61,29 @@ label {
 }
 
 
+#fiximg {
+       bottom: 10px;
+       right: 30px;
+       position: fixed;
+      
+        }
+
+#addbtn {
+
+	background-color: #4f8def;
+        border: none;
+        color: white;
+
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 17px;
+        margin: 4px 2px;
+        cursor: pointer;
+
+}
+
 /*-- header --*/
 
 .w3l_header_left{
