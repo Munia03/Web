@@ -8,11 +8,11 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "1234";
+$password = "";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password);
-mysqli_select_db($conn,'demo');
+mysqli_select_db($conn,'fairuz');
 if(!$conn)
 {
  echo " not connected to database";

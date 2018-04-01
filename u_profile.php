@@ -8,7 +8,7 @@
   if (isset($_GET['sign_out'])) {
   	session_destroy();
   	unset($_SESSION['username']);
-  	header("location: home.html");
+  	header("location: index.html");
   }
   $current_user = $_SESSION['username'];
   $connect = mysqli_connect("localhost", "root", "", "fairuz");  
@@ -41,7 +41,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</script>
 	<!--//tags -->
 	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css/style_new.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="css/font-awesome.css" rel="stylesheet">
 	<!-- //for bootstrap working -->
 	<link href="//fonts.googleapis.com/css?family=Work+Sans:200,300,400,500,600,700" rel="stylesheet">
@@ -69,8 +69,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<nav class="link-effect-2" id="link-effect-2">
 							<ul class="nav navbar-nav">
-								<li><a href="index.html" class="effect-3">Home</a></li>
-								<li><a href="about.html" class="effect-3">About</a></li>
+								<li><a href="home.html" class="effect-3">Home</a></li>
+								<li><a href="s_about.html" class="effect-3">About</a></li>
 								<li><a href="services.php" class="effect-3">Resources</a></li>
 								<!--<li><a href="gallery.html" class="effect-3">Profile</a></li>-->
 								<!--<li class="dropdown">-->
@@ -80,7 +80,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<!--<li><a href="icons.html">Icons</a></li>-->
 								<!--</ul>-->
 								<!--</li>-->
-								<li class="active"><a href="login.php" class="effect-3">Profile</a></li>
+								<li class="active"><a href="u_profile.php" class="effect-3">Profile</a></li>
 								<li><a href="u_profile.php?sign_out='1'" class="effect-3" name="sign_out">Sign Out</a></li>
 							</ul>
 						</nav>
