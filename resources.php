@@ -127,45 +127,45 @@ include('show_table.php');
 <!--ADD MODAL-->
 
  <!-- Modal -->
-  <div class="modal fade" id="myModal">
+<!-- Modal -->
+<div class="modal fade" id="myModal">
     <div class="modal-dialog">
-    
-      <!-- Modal content-->
 
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!-- Modal content-->
 
-          <h4 class="modal-title" align = "center">Add a paper</h4>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                <h4 class="modal-title" align = "center">Add a paper</h4>
+            </div>
+            <div class="modal-body">
+                <form id="insert_form" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="usr">Paper Title:</label>
+                        <input type="text" class="form-control" id="title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Link:</label>
+                        <input type="file" name="myfile"/>
+                    </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <!-- <button data-dismiss="modal" align=>Add</button>-->
+
+                <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success">
+
+            </div>
+
+            </form>
+
         </div>
-        <div class="modal-body">
-            <form id="insert_form" method="post">
-    <div class="form-group">
-      <label for="usr">Paper Title:</label>
-      <input type="text" class="form-control" id="title" name="title">
-    </div>
-    <div class="form-group">
-      <label for="pwd">Link:</label>
-      <input type="text" class="form-control" id="link" name="link">
+
     </div>
 
 </div>
-        
-        <div class="modal-footer">
-         <!-- <button data-dismiss="modal" align=>Add</button>-->
-	
-        <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success">
-	
-	</div>
-							
-        </form>
-
-      </div>
-      
-    </div>
-
-  </div>
-
   
 
 
@@ -195,25 +195,24 @@ include('show_table.php');
 					  {  
  					  alert("Title is required");  
  						 }  
-  					else if($('#link').val() == '')  
- 					 {  
- 					  alert("Link is required");  
- 						 }  
+
  					
    
  					 else  
  					 {  
  						  $.ajax({  
- 						   url:"insert.php",  
+ 						   url:"insert_res.php",  
 						    method:"POST",  
-						    data:$('#insert_form').serialize(),  
+						    data: new FormData(this),
+                             contentType:false,
+                             processData:false,
 						    beforeSend:function(){  
  						    $('#insert').val("Inserting");  
 						    },  
  						   success:function(data){  
   						   $('#insert_form')[0].reset();  
-  						   $('#myModal').modal('hide');  
-                                                   $(".modal-backdrop").remove();
+  						   $('#myModal').modal('hide');
+  						   $(".modal-backdrop").remove();
   						   $('#employee_table').html(data);  
   							  }  
    							});  

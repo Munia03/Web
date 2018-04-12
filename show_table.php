@@ -5,7 +5,7 @@ $table=$_SESSION['table'];
 $output="";
 $display = mysqli_query($conn,"select count(title) from Resources where field='".$table."'");
 $row = mysqli_fetch_array($display);
-
+$output="";
 $total = $row[0];
 
 if($total==0)
@@ -14,47 +14,66 @@ if($total==0)
 
 }
 else{
-//$display = mysqli_query($conn,"select * from Resources where field='".$table."'") ;
+//$display = mysqli_query($conn,"select * from Resources where field='".$table."'") ;*/
+$dbh = new PDO("mysql:host=localhost;dbname=demo","root","1234");
 
-$select_query = "SELECT * FROM Resources where field= '". $table."'";
-     $result = mysqli_query($conn, $select_query);
-     $output .= '
+$STM = $dbh->prepare("SELECT  * FROM Resources where field='$table'");
+$output="";
+
+$STM->execute();			
+$STMrecords = $STM->fetchAll();
+
+
+?>
+
+
       <table class="table table-striped">  
-                    <thead>
+                    <thead style="text-align:center">
          <tr>
             <th> <h3>Paper Title</h3></th>
-            <th><h3>Link</h3></th>
-       
+
          </tr>
          </thead>
           <tbody>
 
-     ';
-     while($row = mysqli_fetch_array($result))
-     {
-      $output .= '
+ <?php
+     foreach($STMrecords as $row)
+{
+
+ $output.="   
+      
  <tr>
-	<td> <h4>'. $row["title"] . '</h4> </td>
-        <td> <a href="'.$row["link"].'"><h4>'.$row["link"].'</h4></a> </td>
+	
+	<td align='middle'><a href='view_pdf.php?id=".$row['id']."' target='_blank'> <h4>".$row['title']."</a></h4> </td>
+       
 	
       </tr>
-       
-      ';
-     }
+      " ;
      
-    }
-    $output .= '</tbody></table>';
+     }
+    
+    
+  $output.= "</tbody>";
 
 
-    echo $output;
+  	//echo $output; 
 
+}
 
+ $output.= "</table>";
 
-
+  	echo $output; 
 
 
 
 ?>
-    	
+
+
+
+
+
+
+
+  	
 	
 	

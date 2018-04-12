@@ -1411,6 +1411,7 @@ h3.bars {
 	padding: 8px;
 	line-height: 1.42857143;
 	vertical-align: top;
+	text-align:center;
 	border-top: 1px solid rgba(241, 234, 239, 0.5);
 }
 
