@@ -12,9 +12,9 @@
   }
   $current_user = $_SESSION['username'];
   $connect = mysqli_connect("localhost", "root", "", "fairuz");  
- $query = "SELECT * FROM profile WHERE username='$current_user'" ;  
- $result = mysqli_query($connect, $query);
- $row = mysqli_fetch_array($result);
+  $query = "SELECT * FROM profile WHERE username='$current_user'" ;  
+  $result = mysqli_query($connect, $query);
+  $row = mysqli_fetch_array($result);
       
  ?>
 
@@ -96,6 +96,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 <!-- //about -->
 
+
+
+
 	<a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 	<!-- js -->
 	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
@@ -119,7 +122,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    <div class="input-group" style="position: absolute;bottom:5;left:645">
     <button type="submit" name="view" id="<?php echo $row["id"];?>" value="view" class="btn btn-info btn-xs view_data" style="height:35px; width:100px; background:#4682B4">View Profile</button>
    </div>
-  
+
+	<a href="s_group.php?as=done&item" class="done-button" style="height:35px; width:100px; position:absolute; bottom:20; right:20">Create Group</a>
+   
  </body>  
 </html>
 
@@ -134,11 +139,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    <div class="modal-body">
     <form id="image_form" method="post" enctype="multipart/form-data">
      <p><label>Select Image (max size: 2MB)</label>
-     <input type="file" name="image" id="image" /></p><br />
-     <input type="hidden" name="action" id="action" value="insert" />
+     <input type="file" name="image" id="image" /></p><br/>
+     <input type="hidden" name="action" id="action" value="insert"/>
      <input type="hidden" name="image_id" id="image_id" />
-     <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-info" />
-      
+     <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-info"/>   
     </form>
    </div>
    <div class="modal-footer">
@@ -147,9 +151,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   </div>
  </div>
 </div>
-
-
-
 
 <div id="dataModal" class="modal fade">  
       <div class="modal-dialog">  
@@ -292,7 +293,6 @@ $(document).ready(function(){
      processData:false,
      success:function(data)
      {
-      alert(data);
       fetch_data();
       $('#image_form')[0].reset();
       $('#imageModal').modal('hide');
@@ -314,13 +314,14 @@ $(document).ready(function(){
   if(confirm("Are you sure you want to remove this image from database?"))
   {
    $.ajax({
-    url:"action.php",
+    url:"group.php",
     method:"POST",
     data:{image_id:image_id, action:action},
     success:function(data)
     {
      alert(data);
      fetch_data();
+	 header('location: group.php');
     }
    })
   }
