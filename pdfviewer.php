@@ -106,27 +106,58 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <gcse:searchresults defaultToImageSearch ="false"></gcse:searchresults>
 
 
+            <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
             <script>
-                function loadDoc() {
-                    var xhttp = new XMLHttpRequest();
-                    xhttp.onreadystatechange = function() {
-                        if (this.readyState == 4 && this.status == 200) {
-                            var data = JSON.parse(this.responseText);
-                            for (var i=0;i< data['items'].length;i++){
-                                if (data['items'][i]['mime']==="application/pdf") {
-                                    document.getElementById("data").innerHTML += data['items'][i]['link'] + '<br/>';
+                $(function(){
+                    $("#btn").click(function(){
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function() {
+                            if (this.readyState == 4 && this.status == 200) {
+                                var fetchedData = JSON.parse(this.responseText);
+                                var jsonData = {
+                                    items: [],
+                                    queryString: document.getElementById('entry').value
+                                };
+                                for (var i=0;i< fetchedData['items'].length;i++){
+                                    if (fetchedData['items'][i]['mime']==="application/pdf") {
+                                        //document.getElementById("data").innerHTML += fetchedData['items'][i]['link'] + '<br/>';
+                                        jsonData.items.push({
+                                            "title" : fetchedData['items'][i]['title'],
+                                            "link"  : fetchedData['items'][i]['link'],
+                                        });
+                                    }
                                 }
+                                var options = {
+                                    url: "web_resources.php",
+                                    dataType: "text",
+                                    type: "POST",
+                                    data: { myData: JSON.stringify(jsonData) }, // Our valid JSON string
+                                    success: function( data ) {
+                                        // console.log(document.getElementById("data").innerHTML);
+                                        $('#result').html(data);
+                                        //alert(' sent');
+                                    },
+                                    error: function( e ) {
+                                        console.log(e.message);
+                                    }
+                                };
+                                $.ajax( options );
                             }
-                        }
-                    };
-                    var key = document.getElementById('entry').value;
-                    xhttp.open("GET", "https://www.googleapis.com/customsearch/v1?key=AIzaSyChxl14zZBdVeRjOdP_qNKBCjsovNXIiUA%20&cx=002466053272353934275:8vi8gdsikzo&q="+key, true);
-                    xhttp.send();
-                }
+                        };
+                        //var dataString = JSON.stringify(fetchedData);
+                        var key = document.getElementById('entry').value;
+                        xhttp.open("GET", "https://www.googleapis.com/customsearch/v1?key=AIzaSyATR5Zx1u7dEoZE2ILAHXrilV7ZZ4TIhKI&cx=002466053272353934275:8vi8gdsikzo&q="+key, true);
+                        xhttp.send();
+                    });
+                });
             </script>
+
             <input type="text" id="entry"/>
-            <button type="button" onclick="loadDoc()">Request data</button>
-            <div id="data"></div>
+            <button type="button" id="btn" name="btn">Request data</button>
+            <div id="result"></div>
+
 
 
             <!--
