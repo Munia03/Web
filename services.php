@@ -1,9 +1,3 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 
 <?php
 
@@ -28,7 +22,7 @@ session_start();
 <html>
 
 <head>
-	<title>Instruction an Education Category Bootstrap Responsive Web Template | About :: w3layouts</title>
+	<title>Research Aid</title>
 	<!--/tags -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -100,6 +94,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- about -->
 
 
+
+
+
+
 <?php 
  if (isset($_GET['iot'])) {
 	$txt = "Internet of Things (IOT)";
@@ -169,7 +167,7 @@ if (isset($_GET['mob'])) {
 		<h3 class="heading-agileinfo">Research Topics<span>  </span></h3>
 		<div class="w3ls_news_grids">
 		<!--<ul class="footer_grid_list"> -->
-			<h3><li><a href="services.php?ai='1'" >Artificial Inteligence (AI)</a></li>
+			<h3><li><a href="services.php?ai='1'" >Artificial Intelligence (AI)</a></li>
 				<li><a <a href="services.php?iot='1'">Internet Of Things (IOT)</a></li>
 
 
