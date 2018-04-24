@@ -44,13 +44,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</script>
 	<!--//tags -->
 	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css/style_new.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="css/font-awesome.css" rel="stylesheet">
 	<!-- //for bootstrap working -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="//fonts.googleapis.com/css?family=Work+Sans:200,300,400,500,600,700" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<link href="//fonts.googleapis.com/css?family=Work+Sans:200,300,400,500,600,700" rel="stylesheet">
 
 
 </head>
@@ -78,7 +75,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<ul class="nav navbar-nav">
 							<li><a href="home.html" class="effect-3">Home</a></li>
 							<li><a href="s_about.html" class="effect-3">About</a></li>
+                                                         <li><a href="myreadpapers.php" class="effect-3">My Read papers</a></li>
 							<li class="active"><a href="services.php" class="effect-3">Resources</a></li>
+							<!--<li><a href="gallery.html" class="effect-3">Profile</a></li>-->
+							<!--<li class="dropdown">-->
+							<!--<a href="#" class="dropdown-toggle effect-3" data-toggle="dropdown">Pages <b class="caret"></b></a>-->
+							<!--<ul class="dropdown-menu">-->
+							<!--<li><a href="codes.html">Codes</a></li>-->
+							<!--<li><a href="icons.html">Icons</a></li>-->
+							<!--</ul>-->
+							<!--</li>-->
 							<li><a href="u_profile.php" class="effect-3">Profile</a></li>
 							<li><a href="services.php?sign_out='1'" class="effect-3" name="sign_out">Sign Out</a></li>
 						</ul>
@@ -160,17 +166,6 @@ if (isset($_GET['mob'])) {
 
 <div class="welcome">
 	<div class="container">
-        <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon">Search</span>
-                <input type="text" name="search_text" id="search_text" placeholder="Search by paper title" class="form-control" />
-            </div>
-        </div>
-        <br />
-        <div id="result"></div>
-        <br />
-        <br />
-        <br />
 		<h3 class="heading-agileinfo">Research Topics<span>  </span></h3>
 		<div class="w3ls_news_grids">
 		<!--<ul class="footer_grid_list"> -->
@@ -197,37 +192,6 @@ if (isset($_GET['mob'])) {
 
 	</div>
 </div>
-
-<script>
-    $(document).ready(function(){
-        load_data();
-        function load_data(query)
-        {
-            $.ajax({
-                url:"search.php",
-                method:"post",
-                data:{query:query},
-                success:function(data)
-                {
-                    $('#result').html(data);
-                }
-            });
-        }
-
-        $('#search_text').keyup(function(){
-            var search = $(this).val();
-            if(search != '')
-            {
-                load_data(search);
-            }
-            else
-            {
-                load_data();
-            }
-        });
-    });
-</script>
-
 <!-- //about -->
 
 <a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>

@@ -1,7 +1,3 @@
-
-<?php session_start();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,10 +67,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<nav class="link-effect-2" id="link-effect-2">
 						<ul class="nav navbar-nav">
 							<li><a href="index.html" class="effect-3">Home</a></li>
+							<li  class="active"><a href="myreadpapers.php" class="effect-3">My Read papers</a></li>
 							<li><a href="about.html" class="effect-3">About</a></li>
-                                                        <li><a href="myreadpapers.php" class="effect-3">My Read papers</a></li>
-							<li class="active"><a href="services.php" class="effect-3">Resources</a></li>
-				                          
+							<li><a href="services.php" class="effect-3">Resources</a></li>
+				
 							<li><a href="home.html" class="effect-3">Sign In</a></li>
 							<li><a href="#" data-toggle="modal" data-target="#SignupModal" class="effect-3">Sign Up</a></li>
 						</ul>
@@ -90,44 +86,80 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- about -->
 
 
- <?php
 
 
-include('topic_type.php');
-$_SESSION['table']=$table;
-
-
-?>
-<div class="welcome">
-	<div class="container">
-		<h3 class="heading-agileinfo"><?php echo $topic?><span>  </span></h3>
-               <div id="employee_table">
-		<table class="table table-striped">
-  
 <?php
+$id = isset($_GET['id'])? $_GET['id'] : "";
+session_start();
+$_SESSION['paper_id']=$id;
+include("connect.php");
+$display = mysqli_query($conn,"select title from Resources where id=".$id);
+$row = mysqli_fetch_array($display);
 
-include('show_table.php');
+$title = $row[0];
+$_SESSION['title']=$title;
+
+$display = mysqli_query($conn,"select summary from Read_papers where paper_id=".$id);
+$row = mysqli_fetch_array($display);
+
+$summary = $row[0];
 
 ?>
 
-</div>
 
- <button class="btn btn-success btn-xs edit_data" id ="fiximg" style="height:40px;width:100px">Add papers</button>
 
-	</div>
+
+	<div class="container">
+             <div class="page-header">
+             <p style="font-size:50px;"><?php echo $title?></p>
+     
+             </div>
+
 
         </div>
 
 
+<div class="container-fluid">
+<div>
+    <div class="col-sm-7">
+     <iframe src="view_pdf.php?id=<?php echo $id?>" width="710" height="1000"></iframe>
+
+    </div>
+    <div class="col-sm-5" >
+  
+        <div id="summarydiv">
+             
+	    <h4><b> My summary:</b></h4>
+            <div  style="padding:15px 0px 0px 0px">
+        <p> <h4><?php echo $summary?></h4> </p>
+            </div>
+        </div>
+
+
+         <div  style="padding:18px 0px 0px 290px">
+        
+
+       
+            <button type='submit'  class="btn btn-info btn-xs edit_data" name='edit'style="height:40px;width:90px;float: right">edit</button>
+
+        </div> 
+      
+   
+    </div>
+
+    
+</div>
 
 
 
-<!-- //about -->
+    
+</div>
 
 
-<!--ADD MODAL-->
 
- <!-- Modal -->
+
+
+
 <!-- Modal -->
 <div class="modal fade" id="myModal">
     <div class="modal-dialog">
@@ -138,25 +170,23 @@ include('show_table.php');
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-                <h4 class="modal-title" align = "center">Add a paper</h4>
+                <h4 class="modal-title" align = "center">Add summary</h4>
             </div>
             <div class="modal-body">
-                <form id="insert_form" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="usr">Paper Title:</label>
-                        <input type="text" class="form-control" id="title" name="title">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Link:</label>
-                        <input type="file" name="myfile"/>
-                    </div>
+                <form id="insert_form" method="post" >
+                   <div class="form-group">
+    		   <label for="exampleFormControlTextarea1">Edit summary</label>
+   		   <textarea class="form-control" name="summary" id="summary" rows="3"><?php echo $summary?></textarea>
+ 		 </div>
+            
+                   
 
             </div>
 
             <div class="modal-footer">
                 <!-- <button data-dismiss="modal" align=>Add</button>-->
 
-                <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success">
+                <input type="submit" name="submit" id="submit"  value="Insert" class="btn btn-success">
 
             </div>
 
@@ -167,7 +197,14 @@ include('show_table.php');
     </div>
 
 </div>
-  
+
+
+
+
+
+
+
+ 
 
 
 
@@ -188,17 +225,16 @@ include('show_table.php');
 				decimals: 0,
 			});
 
-                         $(document).on('click', '.edit_data', function(){  
-    
+                     $(document).on('click', '.edit_data', function(){  
+            
                      $('#myModal').modal('show');  
-           
+             
       });  
-
-			 $('#insert_form').on("submit", function(event){  
+				 $('#insert_form').on("submit", function(event){  
    				event.preventDefault();  
-   					 if($('#title').val() == "")  
+   					 if($('#summary').val() == "")  
 					  {  
- 					  alert("Title is required");  
+ 					  alert("summary is required");  
  						 }  
 
  					
@@ -206,23 +242,27 @@ include('show_table.php');
  					 else  
  					 {  
  						  $.ajax({  
- 						   url:"insert_res.php",  
+ 						   url:"edit_summary.php",  
 						    method:"POST",  
-						    data: new FormData(this),
-                             contentType:false,
-                             processData:false,
+                                                     data:$('#insert_form').serialize(),  
+						   
+                          
 						    beforeSend:function(){  
- 						    $('#insert').val("Inserting");  
+ 						    $('#insert').val("Inserting");
+                                                     
 						    },  
  						   success:function(data){  
   						   $('#insert_form')[0].reset();  
   						   $('#myModal').modal('hide');
+					
   						   $(".modal-backdrop").remove();
-  						   $('#employee_table').html(data);  
+  						   $('#summarydiv').html(data);  
   							  }  
    							});  
  							 }  
  							});
+
+
 
 		});
 	</script>

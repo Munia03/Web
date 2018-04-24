@@ -81,14 +81,61 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     <div class="container" style="height: 750px">
 
-        <div class="col-lg-8" style="height: 100%">
-            <div class="embed-responsive embed-responsive"style="padding-bottom: 100%;">
-                <object class="embed-responsive-item" data="sample.pdf" type="application/pdf" internalinstanceid="9" title="">
+       <div class="col-lg-8" id = "example1" style="height: 100%">
+            <div class="embed-responsive embed-responsive"style="padding-bottom: 100%;"><?php
+$id = isset($_GET['id'])? $_GET['id'] : "";
+echo '<iframe src="view_pdf.php?id='.$id.'" ></iframe>';
+?>
+
+                <!--
+                <div class="embed-responsive embed-responsive"style="padding-bottom: 100%;">
+                 <object class="embed-responsive-item" data="sample.pdf" type="application/pdf" internalinstanceid="9" title="">
+
                     <p>Your browser isn't supporting embedded pdf files. You can download the file
                         <a href="sample.pdf">here</a>.</p>
                 </object>
+                 -->
+
+
             </div>
+
+            <div  style="padding:25px 0px 0px 290px">
+
+                <?php
+
+                $username=$_SESSION['username'];
+
+                $added=0;
+                $dbh = new PDO("mysql:host=localhost;dbname=demo","root","");
+
+                $STM2 = $dbh->prepare("SELECT  * FROM Read_papers where username='$username'");
+                $STM2->execute();
+                $STMrecords2 = $STM2->fetchAll();
+                foreach($STMrecords2 as $row2)
+                {
+
+                    if($row2['paper_id']==$id)
+                    {
+                        $added= 1;
+                    }
+                }
+
+                if($added==0)
+
+                {
+                    echo "<a href='add_read_paper.php?id=".$id."' target='_blank'> <button type='button' id = 'addbttn' class='btn btn-success' name='addbttn' >Add to read papers</button></a>";
+                }
+
+
+                ?>
+
+
+            </div>
+
+
         </div>
+
+
         <div class="col-lg-4">
             <!-- //google custom search -->
             <script>
@@ -203,6 +250,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             interval: 100,
             decimals: 0,
         });
+
+         $("#addbttn").click(function(){
+         $("#addbttn").hide();
+    });
+
 
     });
 </script>

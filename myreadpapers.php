@@ -72,9 +72,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<ul class="nav navbar-nav">
 							<li><a href="index.html" class="effect-3">Home</a></li>
 							<li><a href="about.html" class="effect-3">About</a></li>
-                                                        <li><a href="myreadpapers.php" class="effect-3">My Read papers</a></li>
-							<li class="active"><a href="services.php" class="effect-3">Resources</a></li>
-				                          
+							<li class="active"><a href="myreadpapers.php" class="effect-3">My Read papers</a></li>
+							<li><a href="services.php" class="effect-3">Resources</a></li>
+				
 							<li><a href="home.html" class="effect-3">Sign In</a></li>
 							<li><a href="#" data-toggle="modal" data-target="#SignupModal" class="effect-3">Sign Up</a></li>
 						</ul>
@@ -89,85 +89,101 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //header -->
 <!-- about -->
 
-
- <?php
-
-
-include('topic_type.php');
-$_SESSION['table']=$table;
-
-
-?>
 <div class="welcome">
 	<div class="container">
-		<h3 class="heading-agileinfo"><?php echo $topic?><span>  </span></h3>
+		<h3 class="heading-agileinfo">My read papers<span>  </span></h3>
                <div id="employee_table">
 		<table class="table table-striped">
-  
-<?php
 
-include('show_table.php');
+
+
+
+<?php
+include('connect.php');
+
+$username=$_SESSION['username'];
+$output="";
+$display = mysqli_query($conn,"select count(title) from Read_papers where username='".$username."'");
+$row = mysqli_fetch_array($display);
+$output="";
+$added =0;
+$total = $row[0];
+
+if($total==0)
+{
+	$output.='<h3>Nothing added yet in this section.</h3>';
+
+
+
+}else{
+//$display = mysqli_query($conn,"select * from Resources where field='".$table."'") ;*/
+$dbh = new PDO("mysql:host=localhost;dbname=demo","root","");
+
+$STM = $dbh->prepare("SELECT  * FROM Read_papers where username='$username'");
+$output="";
+
+$STM->execute();			
+$STMrecords = $STM->fetchAll();
+
 
 ?>
 
-</div>
 
- <button class="btn btn-success btn-xs edit_data" id ="fiximg" style="height:40px;width:100px">Add papers</button>
+      <table class="table table-striped">  
+                    <thead style="text-align:center">
+         <tr>
+            <th> <h3>Paper Title</h3></th>
+	<th> <h3>Summary</h3></th>
 
-	</div>
+         </tr>
+         </thead>
+          <tbody>
 
-        </div>
+ <?php
+     foreach($STMrecords as $row)
+{
+    
+	
+
+      
+
+ $output.="   
+      
+ <tr>
+	
+	<td align='left' class='container1'><div> <a href='view_my_paper.php?id=".$row['paper_id']."' target='_blank'> <h4>".$row['title']."</a></h4></div> </td>
+        <td class='container1'><div><h4>".$row['summary']."</a></h4> </div>  </td>
+
+      ";
+
+
+     }
+    
+    
+ 
+
+
+  	//echo $output; 
+
+}
+ $output.= "</tbody>";
+ $output.= "</table>";
+
+  	echo $output; 
 
 
 
-
-
-<!-- //about -->
-
-
-<!--ADD MODAL-->
-
- <!-- Modal -->
-<!-- Modal -->
-<div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-                <h4 class="modal-title" align = "center">Add a paper</h4>
-            </div>
-            <div class="modal-body">
-                <form id="insert_form" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="usr">Paper Title:</label>
-                        <input type="text" class="form-control" id="title" name="title">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Link:</label>
-                        <input type="file" name="myfile"/>
-                    </div>
-
-            </div>
-
-            <div class="modal-footer">
-                <!-- <button data-dismiss="modal" align=>Add</button>-->
-
-                <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success">
-
-            </div>
-
-            </form>
-
-        </div>
-
-    </div>
-
-</div>
+?>
   
+ </div>
+
+
+
+
+</div>
+</div>
+
+
 
 
 
@@ -188,11 +204,7 @@ include('show_table.php');
 				decimals: 0,
 			});
 
-                         $(document).on('click', '.edit_data', function(){  
-    
-                     $('#myModal').modal('show');  
-           
-      });  
+
 
 			 $('#insert_form').on("submit", function(event){  
    				event.preventDefault();  
