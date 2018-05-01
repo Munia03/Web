@@ -1,5 +1,5 @@
 <?php
-$dbh = new PDO("mysql:host=localhost;dbname=demo","root","1234");
+$dbh = new PDO("mysql:host=localhost;dbname=demo","root","");
 $id = isset($_GET['id'])? $_GET['id'] : "";
 $stat = $dbh->prepare("select * from Resources where id=?");
 $stat->bindParam(1,$id);

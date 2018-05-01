@@ -15,7 +15,7 @@ if($total==0)
 }
 else{
 //$display = mysqli_query($conn,"select * from Resources where field='".$table."'") ;*/
-$dbh = new PDO("mysql:host=localhost;dbname=demo","root","1234");
+$dbh = new PDO("mysql:host=localhost;dbname=demo","root","");
 
 $STM = $dbh->prepare("SELECT  * FROM Resources where field='$table'");
 $output="";
@@ -44,7 +44,7 @@ $STMrecords = $STM->fetchAll();
       
  <tr>
 	
-	<td align='middle'><a href='view_pdf.php?id=".$row['id']."' target='_blank'> <h4>".$row['title']."</a></h4> </td>
+	<td align='middle'><a href='viewpaper/pdfviewer.php?id=".$row['id']."' target='_blank'> <h4>".$row['title']."</a></h4> </td>
        
 	
       </tr>

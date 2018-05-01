@@ -122,7 +122,7 @@ $_SESSION['title']=$title;
 <div class="container-fluid">
 <div>
     <div class="col-sm-7">
-     <iframe src="view_pdf.php?id=<?php echo $id?>" width="710" height="1000"></iframe>
+     <iframe src="viewpaper/view_pdf.php?id=<?php echo $id?>" width="710" height="1000"></iframe>
 
     </div>
     <div class="col-sm-5" id="summarydiv">
