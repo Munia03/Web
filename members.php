@@ -3,7 +3,7 @@
 
   if (!isset($_SESSION['username'])) {
   	$_SESSION['msg'] = "You must log in first";
-  	header('location: login.php');
+  	header('location: authentication/login.php');
   }
   if (isset($_GET['sign_out'])) {
   	session_destroy();
@@ -15,26 +15,16 @@
  $query = "SELECT * FROM profile WHERE username='$current_user'" ;  
  $result = mysqli_query($connect, $query);
  $row = mysqli_fetch_array($result);
-      
+  $group_name = $_GET['group_name'];
+  
  ?>
 
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title><!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
-<!DOCTYPE html>
 <html>
 
 <head>
-	<title>Members</title>
-	<!--/tags -->
+	<title>Research Aid</title><!--/tags -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
       <meta charset="utf-8">
 
@@ -89,10 +79,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<ul class="nav navbar-nav">
 							<li><a href="home.html" class="effect-3">Home</a></li>
 							<li><a href="s_about.html" class="effect-3">About</a></li>
-							<li class="active"><a href="services.php" class="effect-3">Resources</a></li>
-				
-							<li><a href="home.html" class="effect-3">Profile</a></li>
-							<li><a href="resources.php?sign_out='1'" class="effect-3" name="sign_out">Sign Out</a></li>						
+							<li><a href="services.php" class="effect-3">Resources</a></li>
+                            <li><a href="myreadpapers.php" class="effect-3">My Read Papers</a></li>
+
+                            <li class="active"><a href="u_profile.php" class="effect-3">Profile</a></li>
+							<li><a href="members.php?sign_out='1'" class="effect-3" name="sign_out">Sign Out</a></li>						
 							</ul>
 					</nav>
 				</div>
@@ -105,19 +96,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //header -->
 <!-- about -->
 
-
-<div class="welcome">
+<!-- about -->
+	<div class="welcome">
 		<div class="container">
-		<h3 class="heading-agileinfo">Group Name<span>  </span></h3>
+		<h3 class="heading-agileinfo"><?php echo $group_name; ?><span>  </span></h3>
+		
 			
 				
 				<h3>
 						
-							
-								<li><a href="index_search.php" class="effect-3">Member1</a></li>
-								<li><a href="about.html" class="effect-3">Member2</a></li>
-								<li><a href="login.php" class="effect-3">Member3</a></li>
-								<li><a href="login.php" class="effect-3">Member4</a></li>
+							<ul class="nav navbar-nav" class="link-effect-2">
+								<li><a href="members.php?as=comment&group_name=<?php echo $_GET['group_name']; ?>" class="effect-3" style="position:absolute; right:840px">Members</a></li>
+								
+								<li><a href="related_res.php?group_name=<?php echo $_GET['group_name']; ?>" class="effect-3" style="position:absolute; right:400px; width:250px; color: black">Related Resources</a></li>
 								<!--<li><a href="gallery.html" class="effect-3">Profile</a></li>-->
 								<!--<li class="dropdown">-->
 								<!--<a href="#" class="dropdown-toggle effect-3" data-toggle="dropdown">Pages <b class="caret"></b></a>-->
@@ -126,8 +117,69 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<!--<li><a href="icons.html">Icons</a></li>-->
 								<!--</ul>-->
 								<!--</li>-->
-								<li><a href="index_task.php" class="effect-3">Member5</a></li>
+								<li><a href="todo_list/index_task.php?as=comment&group_name=<?php echo $_GET['group_name']; ?>" class="effect-3" style="position:absolute; right:10px; width:250px; color:black" >Progress Tracking</a></li>
 							
+							</ul>
+						
+					
+					</h3>
+				
+		
+		</div>
+	</div>
+<!-- //about -->
+
+
+
+<div class="welcome">
+		<div class="container">
+				<h3>
+						
+							
+								<?php
+
+								//member_name
+
+								$connect = new PDO('mysql:host=localhost;dbname=fairuz', 'root', '');								
+
+								$query = "
+								SELECT * FROM new_group 
+								WHERE group_name = '$group_name'
+
+								";
+
+								$statement = $connect->prepare($query);
+
+								$statement->execute();
+
+								$result = $statement->fetchAll();
+								$output = '';
+								$top = 650;
+
+								foreach($result as $row)
+								{
+									$member_name = $row["username"];
+									$top = $top + 30;
+									$output .= '
+ 
+									<div class="aaa" style = "position:absolute; right:1050px; top: 650"><h3></h3></div>
+									<div class = "bbb" style = "position:absolute; top:'.$top.'px">
+									<div class="aaa" style="margin-left:100px; top:'.$top.'px">
+									<a href="member_profile.php?as=comment&username='.$row["username"].'">
+									'.$row["username"].' 
+									</a>
+									</div>
+									</div>
+  
+									';
+ 
+								}
+
+								echo $output;
+
+								?>
+
+
 							
 						
 					
@@ -139,7 +191,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
  
-<a href="index_search.php">
+<a href="member_search/index_search.php?as=comment&group_name=<?php echo $_GET['group_name']; ?>">
   <img id="fiximg"src="images/add.png" back width=100 height=100 align="right" >
 </a>
 	</div>
@@ -208,65 +260,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="js/skill.bars.jquery.js"></script>
 
 <!-- //skills -->
-<!-- footer -->
-<div class="footer_top_agileits">
-		<div class="container">
-
-			<div class="col-md-4 footer_grid">
-
-			</div>
-
-
-			<div class="col-md-4 footer_grid">
-				<h3>Contact Info</h3>
-				<ul class="address">
-					<li><i class="fa fa-map-marker" aria-hidden="true"></i>8088 USA, Honey block, <span>New York City.</span></li>
-					<li><i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">info@example.com</a></li>
-					<li><i class="fa fa-phone" aria-hidden="true"></i>+09187 8088 9436</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<!-- footer -->
-
-
-	<!-- //sign up modal    //blue: 1da1f2  //pink: ff4f81-->
-
-	<div class="modal about-modal fade" id="SignupModal" tabindex="-1" role="dialog">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-body">
-
-						<h2>Signup </h2>
-						<form>
-							<div class="lable">
-								<div class="col_1_of_2 span_1_of_2">	<input type="text" class="text" value="First Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'First Name';}" id="active"></div>
-								<div class="col_1_of_2 span_1_of_2"><input type="text" class="text" value="Last Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Last Name';}"></div>
-								<div class="clear"> </div>
-							</div>
-							<div class="lable-2">
-								<input type="text" class="text" value="your@email.com " onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'your@email.com ';}">
-								<input type="password" class="text" value="Password " onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password ';}">
-							</div>
-
-							<div class="submit">
-								<input type="submit" onclick="myFunction()" value="Create account" >
-							</div>
-							<div class="clear"> </div>
-						</form>
-						<!-----//end-main---->
-
-
-
-
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- sign up modal -->
-
-
 
 </body>
 </html></title>

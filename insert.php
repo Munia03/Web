@@ -9,9 +9,6 @@
       $institution = mysqli_real_escape_string($connect, $_POST["institution"]);  
       $profession = mysqli_real_escape_string($connect, $_POST["profession"]);  
       $research_field = mysqli_real_escape_string($connect, $_POST["research_field"]);  
-      $published_paper = mysqli_real_escape_string($connect, $_POST["published_paper"]);  
-      $ongoing_work = mysqli_real_escape_string($connect, $_POST["ongoing_work"]);  
-      $joined_group = mysqli_real_escape_string($connect, $_POST["joined_group"]);  
       if($_POST["employee_id"] != '')  
       {  
            $query = "  
@@ -20,17 +17,14 @@
            last_name='$last_name',   
            institution='$institution',   
            profession = '$profession',   
-           research_field = '$research_field', 
-           published_paper = '$published_paper',   
-           ongoing_work = '$ongoing_work',   
-           joined_group = '$joined_group'   
+           research_field = '$research_field'
            WHERE id='".$_POST["employee_id"]."'";
       }  
       else  
       {  
            $query = "  
-           INSERT INTO profile(first_name, last_name, institution, profession, research_field, published_paper, ongoing_work, joined_group)  
-           VALUES('$first_name', '$last_name', '$institution', '$profession', '$research_field', '$published_paper', '$ongoing_work', '$joined_group');  
+           INSERT INTO profile(first_name, last_name, institution, profession, research_field)  
+           VALUES('$first_name', '$last_name', '$institution', '$profession', '$research_field');  
            ";  
              
       }  

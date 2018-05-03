@@ -23,6 +23,7 @@ if(isset($_POST["action"]))
  if($_POST["action"] == "fetch")
  {
   $query = "SELECT * FROM profile_image WHERE username='$current_user'";
+  
   $result = mysqli_query($connect, $query);
   
   $row = mysqli_fetch_array($result);
@@ -33,25 +34,24 @@ if(isset($_POST["action"]))
 	 <br>
 	 <button type="button" name="update" class="btn btn-primary bt-xs update" id="'.$row["id"].'" style="position:absolute; bottom:25; left:490; height:35px; width:128px; background:#4682B4">Change Picture</button>
    
+	<!-- <br>
+   	 <button type="button" name="create_group" class="btn btn-primary bt-xs delete" id="'.$row["id"].'" style="position:absolute; bottom:5; left:1200; height:35px; width:128px; background:#4682B4">Create Group</button>-->
+
+   
    ';
 
   echo $output;
  }
 
- if($_POST["action"] == "insert")
+ if($_POST["action"] == "create_group")
  {
-  $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
-  $query = "INSERT INTO profile_image(image) VALUES ('$file')";
-  if(mysqli_query($connect, $query))
-  {
-	  echo $current_user;
-   echo 'Image Inserted into Database';
-  }
+	echo 'eeeeeeeeeeeee';
  }
  if($_POST["action"] == "update")
  {
   $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
   $query = "UPDATE profile_image SET image = '$file' WHERE id = '".$_POST["image_id"]."'";
+  $query1 = "";
   if(mysqli_query($connect, $query))
   {
    echo 'Image Updated into Database';

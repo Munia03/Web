@@ -1,3 +1,27 @@
+<?php 
+  session_start(); 
+
+  if (!isset($_SESSION['username'])) {
+
+  	$_SESSION['msg'] = "You must log in first";
+  	header('location: authentication/login.php');
+  }
+  if (isset($_GET['sign_out'])) {
+  	session_destroy();
+  	unset($_SESSION['username']);
+  	header("location: index.html");
+  }
+  $current_user = $_SESSION['username'];
+  $connect = mysqli_connect("localhost", "root", "", "fairuz");  
+  $query = "SELECT * FROM profile WHERE username='$current_user'" ;  
+  $result = mysqli_query($connect, $query);
+  $row = mysqli_fetch_array($result);
+  $group_name = $_GET['group_name'];
+      
+ ?>
+
+
+
 <!DOCTYPE html>
 <html>
 
@@ -50,7 +74,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<ul class="nav navbar-nav">
 								<li><a href="index.html" class="effect-3">Home</a></li>
 								<li class="active"><a href="about.html" class="effect-3">About</a></li>
-								<li><a href="login.php" class="effect-3">Resources</a></li>
+								<li><a href="services.php" class="effect-3">Resources</a></li>
 								<!--<li><a href="gallery.html" class="effect-3">Profile</a></li>-->
 								<!--<li class="dropdown">-->
 								<!--<a href="#" class="dropdown-toggle effect-3" data-toggle="dropdown">Pages <b class="caret"></b></a>-->
@@ -59,8 +83,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<!--<li><a href="icons.html">Icons</a></li>-->
 								<!--</ul>-->
 								<!--</li>-->
-								<li><a href="login.php" class="effect-3">Sign In</a></li>
-								<li><a href="register.php" class="effect-3">Sign Up</a></li>
+								<li><a href="u_profile.php" class="effect-3">Profile</a></li>
+								<li><a href="index.html" class="effect-3">Sign Out</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -74,7 +98,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- about -->
 	<div class="welcome">
 		<div class="container">
-		<h3 class="heading-agileinfo">Group Name<span>  </span></h3>
+		<h3 class="heading-agileinfo"><?php echo $group_name ?><span>  </span></h3>
 			<div class="w3ls_news_grids"> 
 				
 				<h3 id="h1.-bootstrap-heading">Details<a class="anchorjs-link" href="#h1.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h1>
