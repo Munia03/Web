@@ -1,18 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title><!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+<?php 
+  session_start(); 
+
+  if (!isset($_SESSION['username'])) {
+  	$_SESSION['msg'] = "You must log in first";
+  	header('location: authentication/login.php');
+  }
+  if (isset($_GET['sign_out'])) {
+  	session_destroy();
+  	unset($_SESSION['username']);
+  	header("location: index.html");
+  }
+  $current_user = $_SESSION['username'];
+  $connect = mysqli_connect("localhost", "root", "", "fairuz");  
+  $query = "SELECT * FROM profile WHERE username='$current_user'" ;  
+  $result = mysqli_query($connect, $query);
+  $row = mysqli_fetch_array($result);
+      
+ ?>
+
+
 <!DOCTYPE html>
 <html>
 
 <head>
-	<title>Instruction an Education Category Bootstrap Responsive Web Template | About :: w3layouts</title>
+	<title>Research Aid</title>
 	<!--/tags -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
       <meta charset="utf-8">
@@ -36,7 +47,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!--//tags -->
     		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css/style_new.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="css/font-awesome.css" rel="stylesheet">
 	<!-- //for bootstrap working -->
 	<link href="//fonts.googleapis.com/css?family=Work+Sans:200,300,400,500,600,700" rel="stylesheet">
@@ -72,7 +83,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<li class="active"><a href="services.php" class="effect-3">Resources</a></li>
 				
 							<li><a href="home.html" class="effect-3">Sign In</a></li>
-							<li><a href="#" data-toggle="modal" data-target="#SignupModal" class="effect-3">Sign Up</a></li>
+							<li><a href="add_read_paper.php?sign_out='1'" class="effect-3" name="sign_out">Sign Out</a>
 						</ul>
 					</nav>
 				</div>
@@ -95,7 +106,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <?php
 $id = isset($_GET['id'])? $_GET['id'] : "";
-session_start();
+
 $_SESSION['paper_id']=$id;
 include("connect.php");
 $display = mysqli_query($conn,"select title from Resources where id=".$id);
@@ -122,7 +133,7 @@ $_SESSION['title']=$title;
 <div class="container-fluid">
 <div>
     <div class="col-sm-7">
-     <iframe src="viewpaper/view_pdf.php?id=<?php echo $id?>" width="710" height="1000"></iframe>
+     <iframe src="view_pdf.php?id=<?php echo $id?>" width="710" height="1000"></iframe>
 
     </div>
     <div class="col-sm-5" id="summarydiv">

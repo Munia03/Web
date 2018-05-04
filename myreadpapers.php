@@ -1,23 +1,28 @@
 
-<?php session_start();
-?>
+<?php 
+  session_start(); 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title><!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+  if (!isset($_SESSION['username'])) {
+  	$_SESSION['msg'] = "You must log in first";
+  	header('location: authentication/login.php');
+  }
+  if (isset($_GET['sign_out'])) {
+  	session_destroy();
+  	unset($_SESSION['username']);
+  	header("location: index.html");
+  }
+  $current_user = $_SESSION['username'];
+  $connect = mysqli_connect("localhost", "root", "", "fairuz");  
+  $query = "SELECT * FROM profile WHERE username='$current_user'" ;  
+  $result = mysqli_query($connect, $query);
+  $row = mysqli_fetch_array($result);
+      
+ ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-	<title>Instruction an Education Category Bootstrap Responsive Web Template | About :: w3layouts</title>
-	<!--/tags -->
+	<title>Research Aid</title><!--/tags -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
       <meta charset="utf-8">
 
@@ -40,7 +45,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!--//tags -->
     		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css/style_new.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="css/font-awesome.css" rel="stylesheet">
 	<!-- //for bootstrap working -->
 	<link href="//fonts.googleapis.com/css?family=Work+Sans:200,300,400,500,600,700" rel="stylesheet">
@@ -70,13 +75,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<nav class="link-effect-2" id="link-effect-2">
 						<ul class="nav navbar-nav">
-							<li><a href="index.html" class="effect-3">Home</a></li>
-							<li><a href="about.html" class="effect-3">About</a></li>
-							<li class="active"><a href="myreadpapers.php" class="effect-3">My Read papers</a></li>
-							<li><a href="services.php" class="effect-3">Resources</a></li>
-				
-							<li><a href="home.html" class="effect-3">Sign In</a></li>
-							<li><a href="#" data-toggle="modal" data-target="#SignupModal" class="effect-3">Sign Up</a></li>
+								<li><a href="home.html" class="effect-3">Home</a></li>
+								<li><a href="s_about.html" class="effect-3">About</a></li>
+								<li><a href="services.php" class="effect-3">Resources</a></li>
+								<!--<li><a href="gallery.html" class="effect-3">Profile</a></li>-->
+								<!--<li class="dropdown">-->
+								<!--<a href="#" class="dropdown-toggle effect-3" data-toggle="dropdown">Pages <b class="caret"></b></a>-->
+								<!--<ul class="dropdown-menu">-->
+								<!--<li><a href="codes.html">Codes</a></li>-->
+								<!--<li><a href="icons.html">Icons</a></li>-->
+								<!--</ul>-->
+								<!--</li>-->
+								<li class="active"><a href="myreadpapers.php" class="effect-3">My Read papers</a></li>
+								
+								<li><a href="u_profile.php" class="effect-3">Profile</a></li>
+								<li><a href="myreadpapers.php?sign_out='1'" class="effect-3" name="sign_out">Sign Out</a></li>
+							
 						</ul>
 					</nav>
 				</div>
@@ -117,7 +131,7 @@ if($total==0)
 
 }else{
 //$display = mysqli_query($conn,"select * from Resources where field='".$table."'") ;*/
-$dbh = new PDO("mysql:host=localhost;dbname=demo","root","");
+$dbh = new PDO("mysql:host=localhost;dbname=fairuz","root","");
 
 $STM = $dbh->prepare("SELECT  * FROM Read_papers where username='$username'");
 $output="";
@@ -240,24 +254,6 @@ $STMrecords = $STM->fetchAll();
 	</script>
 <!-- //skills -->
 <!-- footer -->
-<div class="footer_top_agileits">
-		<div class="container">
-
-			<div class="col-md-4 footer_grid">
-
-			</div>
-
-
-			<div class="col-md-4 footer_grid">
-				<h3>Contact Info</h3>
-				<ul class="address">
-					<li><i class="fa fa-map-marker" aria-hidden="true"></i>8088 USA, Honey block, <span>New York City.</span></li>
-					<li><i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">info@example.com</a></li>
-					<li><i class="fa fa-phone" aria-hidden="true"></i>+09187 8088 9436</li>
-				</ul>
-			</div>
-		</div>
-	</div>
 	<!-- footer -->
 
 

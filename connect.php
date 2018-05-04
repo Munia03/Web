@@ -12,8 +12,7 @@ $password = "";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password);
-mysqli_select_db($conn,'demo');
-$dbh = new PDO("mysql:host=localhost;dbname=demo","root","");
+mysqli_select_db($conn,'fairuz');
 if(!$conn)
 {
  echo " not connected to database";
