@@ -21,7 +21,7 @@ foreach ($data->items as $obj) {
     //generate output
     // define a variable to switch on/off error messages
     $mysqliDebug = true;
-    $connect = mysqli_connect("localhost", "root", "", "demo");
+    $connect = mysqli_connect("localhost", "root", "", "fairuz");
 
     if ($connect->connect_errno) {
         echo '<p>There was an error connecting to the database!</p>';
@@ -59,14 +59,14 @@ foreach ($data->items as $obj) {
         // we have a record so now we can use it
         // the columns are properties of the object
         if ($result->num_rows == 0) {
-            echo '<p>No records found.</p>';
-            $dbh = new PDO("mysql:host=localhost;dbname=demo","root","");
-            $pdf =file_get_contents($obj->link);
-            $stmt = $dbh->prepare("insert into web_resources values('',?,?,?,?)");
+            // echo '<p>No records found.</p>';
+            $dbh = new PDO("mysql:host=localhost;dbname=fairuz","root","");
+            // $pdf =file_get_contents($obj->link);
+            $stmt = $dbh->prepare("insert into web_resources values('',?,?,'',?)");
             $stmt->bindParam(1,$title);
             $stmt->bindParam(2,$link);
-            $stmt->bindParam(3,$pdf, PDO::PARAM_LOB);
-            $stmt->bindParam(4,$queryString);
+            //$stmt->bindParam(3,$pdf, PDO::PARAM_LOB);
+            $stmt->bindParam(3,$queryString);
 
             if ($stmt->execute()){
                 // echo "*******************************************************************************";
@@ -75,7 +75,7 @@ foreach ($data->items as $obj) {
                 //echo $stmt->errorCode()."www";
             }
 
-            $connect = mysqli_connect("localhost", "root", "", "demo");
+            $connect = mysqli_connect("localhost", "root", "", "fairuz");
 
             if ($connect->connect_errno) {
                 echo '<p>There was an error connecting to the database!</p>';
@@ -107,7 +107,7 @@ foreach ($data->items as $obj) {
             if ($result) {
                 // perhaps you want to check if there are any rows available
                 if ($result->num_rows == 0) {
-                    echo '<p>No records found.</p>';
+                    //echo '<p>No records found.</p>';
                 }
                 else {
                     while ($recordObj = $result->fetch_object()) {
@@ -119,7 +119,6 @@ foreach ($data->items as $obj) {
 				                <td><a href='.$recordObj->link.'"  target=\"_blank\">' .$recordObj->link.'</a></td>
 			                </tr>
 		            ';
-                        //<td><a href=\"view.php?id='.$recordObj->id.' "  target=\"_blank\">' .$recordObj->link.'</a></td>
                     }
                 }
             }

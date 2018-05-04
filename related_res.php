@@ -146,9 +146,9 @@ else{
 
 $select_query = "SELECT * FROM Resources where field= '". $topic."'";
      $result = mysqli_query($conn, $select_query);
-     $output.='<thead>
+     $output.='<thead align="center">
 		 <tr>
-                 <th> <h3>Paper Title</h3></th>
+                 <th> <h3 align="center">Paper Title</h3></th>
                  </tr>
                   </thead>
                  <tbody>';
@@ -157,7 +157,7 @@ $select_query = "SELECT * FROM Resources where field= '". $topic."'";
      {
       $output .= "
  <tr>
-	<td> <a href='pdfviewer.php?id=".$row['id']."' target='_blank'> <h4>".$row['title']."</a></h4> </td>
+	<td> <a href='pdfviewer.php?id=".$row['id']."' target='_blank'> <h4 align='center'>".$row['title']."</a></h4> </td>
 	
       </tr>
        
